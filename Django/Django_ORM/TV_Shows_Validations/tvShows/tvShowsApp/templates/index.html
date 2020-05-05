@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container col-11">
+        <h1 class="m-3" >All Shows</h1>
+        <div class="border border-dark row">
+            <div class="text-center bg-secondary border-right border-dark col-1">ID</div>
+            <div class="col-3 bg-secondary border-right border-dark">Title</div>
+            <div class="col-3 bg-secondary border-right border-dark">Network</div>
+            <div class="col-2 bg-secondary border-right border-dark">Release Date</div>
+            <div class="col-3 bg-secondary">Actions</div>
+            {% for info in table %}
+        </div>
+    </div>    
+    <div class="container col-11">
+        <div class="border border-dark row">
+            <div class="col-1 border-right border-dark p-2"><a href="/shows/{{info.id}}">{{info.id}}</a></div>
+            <div class="col-3 border-right border-dark p-2">{{info.title}}</div>
+            <div class="col-3 border-right border-dark p-2">{{info.network}}</div>
+            <div class="col-2 border-right border-dark p-2">{{info.release_date}}</div>
+            <div class="col-3 p-2"> <a href="/shows/{{info.id}}">Show</a> | <a href="/shows/{{info.id}}/edit">Edit</a> | <a href="/shows/{{info.id}}/delete">Delete</a></div>
+        </div>
+            {% endfor %}
+        <div class="row">
+            <div class="col-4 mt-4 p-2"><a href="/shows/new">Add a New Show</a></div>
+        </div>
+    </div>
+</body>
+</html>

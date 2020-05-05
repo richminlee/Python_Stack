@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+
+    <div class="row">
+            <div class="col-12 text-right">
+                <a href="/books">Home</a> | <a href="/logout">Log Out</a>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <div class="row">
+                <div class="col-6">
+                    <h6>{{book.title}}</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">Author: {{book.author}}</div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h6>Reviews:</h6>
+                </div>
+            </div>
+
+            {% for info in review %}
+            <div class="row">
+                <div class="col-6">{{info.rating}}</div>
+            </div>
+            <div class="row">
+                <div class="col-6"> <a href="/books/users/{{info.logged.id}}"> {{info.logged.first_name}}</a>says:{{info.review}}
+                    {% if info.logged.id == request.session.logged_id %}
+                    <span class="col-1">
+                        <form action="/books/{{info.id}}/{{book.id}}/delete" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="text-right col-12 p-2">
+                                    <input class="bg-dark text-white" type="submit" value="delete">
+                                </div>
+                            </div>
+                        </form>
+                        </span>
+                        {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-5">
+        <form class="col-12" action="/books/{{book.id}}" method="POST">
+            {% csrf_token %}
+                <div class="row">
+                    <label for="review" class="col-5 p-2 m-1 h6">Add a Review: </label>
+                </div>
+                <div class="row">
+                    <textarea name="review" rows="4" class="col-8 p-2 m-1"></textarea>
+                </div>
+
+                <div class="row">
+                    <label for="rating" class="col-3 p-2 m-1 h6">Rating: </label>
+                    <select name="rating" class="col-1 p-2 m-1">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    </select>
+                    <span class="col-3 p-2 m-1 h6">stars.</span>
+                </div>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <input type="submit" value="Submit Review" class="btn btn-primary col-6 col-md-4">
+                </div>
+        </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

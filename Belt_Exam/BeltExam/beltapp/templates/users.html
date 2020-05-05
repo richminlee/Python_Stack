@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <span class="col-11 text-right"><a href="/quotes">Back</a></span>
+            <span class="col-1 text-right">
+                <form action="/logout" method="POST">
+                    {% csrf_token %}
+                        <input type="submit" value="Logout">
+                </form>
+            </span>
+        </div>
+        <div class="row">
+            <div class="col-5">
+                <div class="row h6 p-2 ml-4">{{user.first_name}} {{user.last_name}}'s Quotes</div>
+                {% for info in quotes %}
+                <div class="row border border-dark m-4 p-2">{{info.author}}: "{{info.quotes}}"</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

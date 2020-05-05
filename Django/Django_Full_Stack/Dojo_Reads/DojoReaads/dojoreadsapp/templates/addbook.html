@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="row"></div>
+            <div class="col-7">
+                <h6>Add a New Book Title and a Review</h6>
+            </div>
+            <div class="col-5 text-right">
+                <a href="/books">Home</a> | <a href="/logout">Log Out</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="col-12">
+                    <div class="row">
+                        <form class="col-6" action="/books/add" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <label for="title" class="col-3 p-2 m-1 h6">Book Title: </label>
+                                <input type="text" name="title" class="col-8 p-2 m-1">
+                            </div>
+                            <div class="row col-3 p-2 h6">Author:</div>
+                            <div class="row ml-2">
+                                
+                                <label for="author" class="col-5 p-2 m-1">Choose from the list: </label>
+                                <select name="author" class="col-6 p-2 m-1">
+                                    {% for info in bookie %}
+                                        <option value="{{info.author}}">{{info.author}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="row ml-2">
+                                <label for="author" class="col-5 p-2 m-1">Or add a new author: </label>
+                                <input type="text" name="author" class="col-6 p-2 m-1">
+                            </div>
+                            <div class="row">
+                                <label for="review" class="col-3 p-2 m-1 h6">Review: </label>
+                                <textarea name="review" rows="4" class="col-8 p-2 m-1"></textarea>
+                            </div>
+                            <div class="row">
+                                <label for="rating" class="col-3 p-2 m-1 h6">Rating: </label>
+                                <select name="rating" class="col-1 p-2 m-1">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                </select>
+                                <span class="col-3 p-2 m-1 h6">stars.</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-4"></div>
+                                <input type="submit" value="Add Book and Review" class="btn btn-primary col-6 col-md-4">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+</body>
+</html>

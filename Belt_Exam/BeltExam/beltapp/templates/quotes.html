@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h6>Welcome, {{user.first_name}} {{user.last_name}}!</h6>
+            </div>
+            <span class="col-5 text-right">
+                <a href="/myaccount/{{user.id}}">Edit My Account</a>
+            </span>
+            <span class="col-1 text-right">
+                <form action="/logout" method="POST">
+                    {% csrf_token %}
+                        <input type="submit" value="Logout">
+                </form>
+            </span>
+        </div>
+        <div class="row h6 text-center">
+            <div class="col-5">Quotes</div>
+            <div class="col-5">Add a Quote!</div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-5">
+                {% for info in quotes %}
+                <div class="col border border-dark m-1">
+                    <div class="row h6 p-2">{{info.author}}: "{{info.quotes}}"</div> 
+                    <div class="row p-2">Posted by:<a href="/quotes/users/{{info.logged.id}}">{{info.logged.first_name}}</a></div>
+                    <div class="row p-2">{{info.likes.count}} people like this 
+                        <span class="col-1 text-right">
+                                <form action="/like/{{info.id}}" method="POST">
+                                    {% csrf_token %}
+                                        <input type="submit" value="Like!">
+                                </form>
+                        </span>
+                    </div>
+                    {% if info.logged.id == request.session.logged_id %}
+                        <a href="/quotes/{{info.id}}/delete">Delete</a>
+                        {% endif %}
+            </div>
+            {% endfor %}
+            </div>
+
+            <div class="col-5">
+                <form class="col-12" action="/quotes/add" method="POST">
+                    {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12 p-2">
+                                <label for="author">Author </label>
+                                <input style="float: right; width: 290px;" type="text" name="author">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 p-2">
+                            <label for="quotes">Quote </label>
+                            <textarea style="float: right;" name="quotes" rows="4" class="col-8 p-2 m-1"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <input type="submit" value="Submit" class="col-6 col-md-4">
+                        </div>
+                </form>
+                {% if messages %}
+                <div class="row">
+                    <ul>
+                        {% for message in messages %}
+                        <li>{{message}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                </div>
+        </div>
+    </div>
+</body>
+</html>

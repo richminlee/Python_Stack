@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+</head>
+<body>
+    <form action='/result' method='post'>
+        {% csrf_token %}
+        <p>Your Name: <input type='text' name='name'></p>
+        <p>Dojo Location: <select name='location'>
+            <option value="Seattle">Seattle, WA</option>
+            <option value="San Francisco">San Francisco, CA</option>
+            <option value="Austin">Austin, TX</option>
+            <option value="NYC">NYC, NY</option>
+        </select></p>
+        <p>Favorite Language: <select name='language'>
+            <option value="Javascript">Javascript</option>
+            <option value="Python">Python</option>
+            <option value="C#/.Net">C#/.Net</option>
+            <option value="MERN">MERN</option>
+        </select></p>
+        <p>Comment (optional): </p>
+        <p><textarea name='comment'></textarea></p>
+        <button type='submit'>Button</button>
+    </form>
+</body>
+</html>

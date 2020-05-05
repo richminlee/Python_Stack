@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h6>Welcome, {{user.first_name}}!</h6>
+            </div>
+            <span class="col-5 text-right">
+                <a href="/books/add">Add Book and Review</a>
+            </span>
+            <span class="col-1 text-right">
+                <a href="/logout">Logout</a>
+            </span>
+        </div>
+        <div class="row mt-5">
+            <div class="col-6">
+                <h6>Recent Book Reviews:</h6>
+                {% for info in user.books.all%}
+                <div class="row ml-2 h6 p-2"><a href="/books/{{info.id}}">{{info.title}}</a></div> 
+                    {% for infos in info.review.all%}
+                        
+                        <div class="row ml-4">Rating: {{infos.rating}} stars.</div>
+                        <div class="row ml-4 p-2"> <a href="/books/users/{{infos.logged.id}}">{{infos.logged.first_name}}</a>says: {{infos.review}}</div>
+                        <div class="row ml-4 p-2">posted on: {{infos.created_at}}</div>
+                        {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="col-5">
+                <h6>Other Books with Reviews:</h6>
+                <div style="overflow: scroll; width : 400px; height : 150px;">
+                    
+                    {% for info in user.books.all %}
+                            <p><a href="/books/{{info.id}}">{{info.title}}</a></p>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+</body>
+</html>

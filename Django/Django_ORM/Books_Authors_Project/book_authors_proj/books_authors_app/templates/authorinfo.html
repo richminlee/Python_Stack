@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-4 p-2">
+                <h1> {{authie.first_name}} {{authie.last_name}} </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1 ml-4 p-2">ID:</div>
+            <div class="col-4 p-2">{{authie.id}}</div>
+        </div>
+        <div class="row">
+            <div class="col-1 ml-4 p-2">Notes:</div>
+            <div class="col-4 p-2">{{authie.notes}}</div>
+        </div>
+        <div class="row">
+            <div class="col-1 ml-4 p-2">Books:</div>
+        </div>
+        <div class="row">
+            <div class="col-1"></div>
+            <ul>
+        {%for i in authie.books.all%}
+        <li><div class="col-11">{{i.title}}</div></li>
+        {%endfor%}
+    </ul>
+    </div>
+    <div class="row">
+        <form action="/author/{{authie.id}}" method="POST">
+            {% csrf_token %}
+        <div class="col-1"></div>
+        <div class="col-1">
+        <select name="bookk">
+            <option value="select">-select a book-</option>
+            {%for i in boo%}
+            <option value={{i.title}}> {{i.title}}</option>
+            {%endfor%}
+        </select>
+        <input type="submit" value="Add">
+    </div>
+    </form>
+    </div>
+</body>
+</html>

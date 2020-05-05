@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-4">
+                <form action="/register" method="POST">
+                    {% csrf_token %}
+                    <h1 style="text-align: center; margin: 5%;">Registration</h1>
+                    <div class="row">
+                        <div class="col-12 p-2">
+                            <label for="first_name">First Name: </label>
+                            <input style="float: right;" type="text" name="first_name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 p-2">
+                            <label for="last_name">Last Name: </label>
+                            <input style="float: right;" type="text" name="last_name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 p-2">
+                            <label for="email">Email:</label>
+                            <input style="float: right;" type="email" name="email">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 p-2">
+                            <label for="birthdate">Birthdate:</label>
+                            <input style="float: right;" type="date" name="birthdate">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 p-2">
+                            <label for="password">Password:</label>
+                            <input style="float: right;" type="password" name="password">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 p-2">
+                            <label for="confirmPW">Confirm PW:</label>
+                            <input style="float: right;" type="password" name="confirmPW">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center col-12 p-2">
+                            <input type="submit" value="Register">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-4">
+                <form action="/login" method="POST">
+                    {% csrf_token %}
+                    <h1 style="text-align: center; margin: 5%;">Login</h1>
+                    <div class="row">
+                        <div class="col-12 p-2">
+                            <label for="email">Email: </label>
+                            <input style="float: right;" type="text" name="email">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 p-2">
+                            <label for="password">Password</label>
+                            <input style="float: right;" type="password" name="password">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center col-12 p-2">
+                            <input type="submit" value="Log In">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% if messages %}
+    <div class="row">
+        <ul>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</body>
+</html>

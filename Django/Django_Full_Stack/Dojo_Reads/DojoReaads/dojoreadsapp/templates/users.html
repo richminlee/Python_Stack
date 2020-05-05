@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <span class="col-12 text-right">
+                <a href="/books">Home</a> | <a href="/books/add">Add Book and Review</a> | <a href="/logout">Logout</a>
+            </span>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="row h6 p-2">Welcome, {{user.first_name}}!</div>
+                <div class="row h6 p-2">User Alias: {{user.alias}}</div>
+                <div class="row h6 p-2">Name: {{user.first_name}} {{user.last_name}}</div>
+                <div class="row h6 p-2">Email: {{user.email}}</div>
+                <div class="row h6 p-2">Total Reviews: {{user.reviews.count}}</div>
+            </div>
+        </div>
+        <div class="row h6 p-2">Posted Reviews on the following books:</div>
+        {% for info in user.books.all %}
+        <div class="row ml-4"> <a href="/books/{{info.id}}">{{info.title}}</a></div>
+        {% endfor %}
+    </div>
+</body>
+</html>

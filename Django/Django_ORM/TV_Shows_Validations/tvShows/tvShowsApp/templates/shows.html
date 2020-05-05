@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="col-11 container">
+        <div class="col-6 p-2"><a style="float: right;" href="/shows">Go Back</a></div>
+        <div class="row">
+            <div class="col-12 p-2">
+                <h1> TV Show {{showinfo.id}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2 ml-4 p-2">Title</div>
+            <div class="col-8 p-2">{{showinfo.title}}</div>
+        </div>
+        <div class="row">
+            <div class="col-2 ml-4 p-2">Network:</div>
+            <div class="col-8 p-2">{{showinfo.network}}</div>
+        </div>
+        <div class="row">
+            <div class="col-2 ml-4 p-2">Release Date:</div>
+            <div class="col-8 p-2">{{showinfo.release_date}}</div>
+        </div>
+        <div class="row">
+            <div class="col-2 ml-4 p-2">Description:</div>
+            <div style="height: 100px;" class="col-8 p-2">{{showinfo.description}}</div>
+        </div>
+        <div style="justify-content: baseline;" class="row">
+            <div class="col-2 ml-4 p-2">Last Updated:</div>
+            <div class="col-8 p-2">{{showinfo.updated_at}}</div>
+        </div>
+        <div class="row">
+        <div class="col-3 ml-4 p-2"> <a href="/shows/{{showinfo.id}}/edit">Edit</a> | <a href="/shows/{{showinfo.id}}/delete">Delete</a></div>
+    </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 p-2"><a style="float: right;" href="/shows">Go Back</a>
+                <form action="/newShow" method="POST">
+                    {% csrf_token %}
+                    <h1 style="text-align: center;">Add a New Show</h1>
+                    <div class="row">
+                        <div class="col-12 p-2">
+                            <label for="title">Title </label>
+                            <p><input style="width: 100%;" type="text" name="title"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 p-2">
+                            <label for="network">Network </label>
+                            <p><input style="width: 100%;" type="text" name="network"></p>
+                        </div>
+                        <div class="col-5 p-2">
+                            <label for="release_date">Release Date</label>
+                            <p><input style="width: 100%;" type="date" name="release_date"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 pb-5 p-2">
+                            <label for="description">Description</label>
+                            <p><textarea name="description" cols="75" rows="8"></textarea></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center col-12 p-2">
+                            <input type="submit" value="Create">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% if messages %}
+    <div class="row">
+        <ul>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</body>
+</html>

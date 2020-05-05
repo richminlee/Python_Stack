@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C+R Users</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1 style="text-align: center;">All the Users</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-1 p-2">ID</div>
+            <div class="col-4 p-2">Name</div>
+            <div class="col-4 p-2">Email</div>
+            <div class="col-2 p-2">Age</div>
+        </div>
+        {% for info in table %}
+        <div class="row">
+            <div class="col-1 p-2"> {{info.id}}  </div>
+            <div class="col-4 p-2">{{info.first_name}} {{info.last_name}}</div>
+            <div class="col-4 p-2">{{info.email_address}}</div>
+            <div class="col-2 p-2">{{info.age}}</div>
+        </div>
+        {% endfor %}
+    </div>
+    <h1 style="text-align: center; border-top: 1px solid black;">Add a User</h1>
+    <div class="container">
+        <form action="/addUser" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                    <div class="col-2 p-2"></div>
+                    <div class="col-4 p-2">
+                        <label for="first_name">First Name:</label>
+                        <input style="float: right;" type="text" name="first_name">
+                    </div>
+                    <div class="col-4 p-2">
+                        <label for="last_name">Last Name:</label>
+                        <input style="float: right;" type="text" name="last_name">
+                    </div>
+                    <div class="col-2 p-2"></div>
+            </div>
+            <div  class="row">
+                <div class="col-2 p-2"></div>
+                <div class="col-4 p-2">
+                    <label for="email">Email:</label>
+                    <input style="float: right;"type="textcopy" name="email">
+                </div>
+                <div class="col-4 p-2">
+                    <label for="agey">Age:</label>
+                    <input style="float: right;"type="number" name="agey">
+                </div>
+                <div class="col-2 p-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-5 p-2"></div>
+                <div class="col-2 p-2">
+                    <input type="submit" value="add">
+                </div>
+                <div class="col-5 p-2"></div>
+            </div>
+        </form>
+</body>
+</html>

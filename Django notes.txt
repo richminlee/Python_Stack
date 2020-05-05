@@ -1,0 +1,137 @@
+Django project
+
+Create your environment:
+------------------------------------------------------------------
+| Mac/Linux: | python3 -m venv djangoPy3Env 
+-------------+----------------------------------------------------
+| Windows: | virtualenv djangoPy3Env
+>------------------------------------------------------------------
+
+Activate your environment:
+---------------------
+copy
+---------------------------------------------
+| Mac/Linux: | source djangoPy3Env/bin/activate                         
+------------------------------------------------------------------
+| Windows (command prompt): | call djangoPy3Env\Scripts\activate       
+------------------------------------------------------------------
+| Windows (git bash) : | source djangoPy3Env/Scripts/activate         
+------------------------------------------------------------------
+
+Install Django:
+(djangoPy3Env) Windows/Mac:| pip install Django==2.2 
+
+> cd python_stack/django/django_intro
+django_intro> django-admin startproject your_project_name_here
+
+django_intro> cd your_project_name_here
+your_project_name_here> python manage.py runserver
+
+Go to localhost:8000 on your browser
+Type ctrl-c to stop the server
+your_project_name_here> python manage.py startapp your_app_name_here
+
+
+
+
+
+your_project_name_here/your_project_name_here/settings.py
+   INSTALLED_APPS = [
+       'your_app_name_here', # added this line. Don't forget the comma!!
+       'django.contrib.admin',
+       'django.contrib.auth',
+       'django.contrib.contenttypes',
+       'django.contrib.sessions',
+       'django.contrib.messages',
+       'django.contrib.staticfiles',
+   ]    # the trailing comma after the last item in a list, tuple, or dictionary is commonly accepted in Python
+
+your_project_name_here/your_project_name_here/urls.py
+from django.urls import path, include
+
+urlpatterns = [
+    path('', include('your_app_name_here.urls')),
+]
+
+your_project_name_here/your_app_name_here/urls.py
+from django.urls import path     
+from . import views
+urlpatterns = [
+    path('', views.index),	   
+]
+
+your_project_name_here/your_app_name_here/views.py
+from django.shortcuts import render, HttpResponse
+def index(request):
+    return HttpResponse("this is the equivalent of @app.route('/')!")
+
+your_project_name_here> python manage.py runserver
+
+python manage.py makemigrations
+python manage.py migrate
+python manage.py shell
+
+from django.db import models
+    
+class Movie(models.Model):
+    title = models.CharField(max_length=45)
+    description = models.TextField()
+    release_date = models.DateTimeField()
+    duration = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+ 
+class Author(models.Model):
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+class Book(models.Model):
+    title = models.CharField(max_length=255)
+    author = models.ForeignKey(Author, related_name="books", on_delete = models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+this_author = Author.objects.get(id=2)
+my_book = Book.objects.create(title="Little Women", author=this_author)	
+    
+or 
+
+my_book = Book.objects.create(title="Little Women", author=Author.objects.get(id=2))
+__________________________________________________________________________
+this_author = Author.objects.get(id=2)
+books = Book.objects.filter(author=this_author)
+    
+or
+
+books = Book.objects.filter(author=Author.objects.get(id=2))
+
+class Book(models.Model):
+	title = models.CharField(max_length=255)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+class Publisher(models.Model):
+	name = models.CharField(max_length=255)
+	books = models.ManyToManyField(Book, related_name="publishers")
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+
+this_book = Book.objects.get(id=4)	# retrieve an instance of a book
+this_publisher = Publisher.objects.get(id=2)	# retrieve an instance of a publisher
+    
+# 2 options that do the same thing:
+this_publisher.books.add(this_book)		# add the book to this publisher's list of books
+# OR
+this_book.publishers.add(this_publisher)	# add the publisher to this book's list of publishers
+this_book = Book.objects.get(id=4)	# retrieve an instance of a book
+this_publisher = Publisher.objects.get(id=2)	# retrieve an instance of a publisher
+    
+# 2 options that do the same thing:
+this_publisher.books.remove(this_book)		# remove the book from this publisher's list of books
+# OR
+this_book.publishers.remove(this_publisher)	# remove the publisher from this book's list of publishers
+this_publisher.books.all()	# get all the books this publisher is publishing
+this_book.publishers.all()	# get all the publishers for this book
+

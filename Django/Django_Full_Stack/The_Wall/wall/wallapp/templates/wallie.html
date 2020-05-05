@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container col-12 p-2 border-bottom border-dark">
+    <span class="col-3 p-2 h3">CodingDojo Wall</span>
+    <span style="float: right;" class="col-3 p-2" > Welcome, {{logged.first_name}} <a style="float: right;" href="/logout">Log Out</a></span>
+    </div>
+    <div class="container m-5">
+        <form action="/wall" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <h5>Post a message</h5>
+            </div>
+            <div class="row col-12">
+                <p><textarea name="messages" cols="160" rows="3"></textarea></p>
+            </div>
+            <div class="row">
+                <div class="text-right col-12 p-2">
+                    <input class="bg-primary text-white" type="submit" value="Post a message">
+                </div>
+            </div>
+        </form>
+        {% for info in messages %}
+            <div class="row h6">{{info.logged.first_name}} {{info.logged.last_name}} - {{info.updated_at}}</div>
+            <div class="row ml-1 m-1"> <span class="col-11">{{info.messagess}}</span>
+                <span class="col-1">
+                <form action="/wall/{{info.id}}" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="text-right col-12 p-2">
+                            <input class="bg-dark text-white" type="submit" value="delete">
+                        </div>
+                    </div>
+                </form>
+                </span> 
+            </div>
+            {% for comm in info.comments.all %}
+            <div class="row ml-3 m-1 h6">{{comm.logged.first_name}} {{comm.logged.last_name}} - {{comm.updated_at}}</div>
+            <div class="row ml-4 m-1"><span class="col-11">{{comm.comments}}</span>
+                <span class="col-1">
+                <form action="/wall/{{comm.id}}/comdel" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="text-right col-12 p-2">
+                            <input class="bg-dark text-white" type="submit" value="delete">
+                        </div>
+                    </div>
+                </form>
+            </span>
+            </div>
+            {% endfor %}
+                <form action="/wall/{{info.id}}/comment" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <h5>Post a comment</h5>
+                    </div>
+                    <div class="row col-12">
+                        <p><textarea name="com" cols="150" rows="3"></textarea></p>
+                    </div>
+                    <div class="row">
+                        <div class="text-right col-11 p-2">
+                            <input class="bg-success text-white" type="submit" value="Post a comment">
+                        </div>
+                    </div>
+                </form>
+                {%endfor%}
+    </div>
+</body>
+</html>
